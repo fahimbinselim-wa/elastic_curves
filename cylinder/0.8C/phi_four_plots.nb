@@ -1,0 +1,1280 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     49064,       1272]
+NotebookOptionsPosition[     48068,       1248]
+NotebookOutlinePosition[     48469,       1264]
+CellTagsIndexPosition[     48426,       1261]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], 
+  "]"}], "\n", "\"\<D:\\\\Curve Elasticity\\\\Paper Draft\\\\Paper \
+Files\\\\cylinder\\\\0.8C\>\"", "\n", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<phi_check.txt\>\"", ",", "\"\<Table\>\""}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"data", ",", 
+     RowBox[{
+      RowBox[{"VectorQ", "[", 
+       RowBox[{"#1", ",", "NumericQ"}], "]"}], "&"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"sigma", "=", 
+    RowBox[{"data", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "1"}], "]"}], "]"}]}], ";", 
+   RowBox[{"phi", "=", 
+    RowBox[{"data", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ";", 
+   RowBox[{"phiSigma", "=", 
+    RowBox[{"data", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "3"}], "]"}], "]"}]}], ";", 
+   RowBox[{"tauG", "=", 
+    RowBox[{"data", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "4"}], "]"}], "]"}]}], ";", 
+   RowBox[{"phiSigmaPlusTauG", "=", 
+    RowBox[{"data", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "5"}], "]"}], "]"}]}], ";"}], " "}], "\n", 
+ RowBox[{
+  RowBox[{"kG", "=", 
+   RowBox[{"data", "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "6"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"kN1", "=", 
+   RowBox[{"data", "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "7"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"kN2", "=", 
+   RowBox[{"data", "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "8"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"kB", "=", 
+   RowBox[{"data", "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "9"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"H", "=", 
+   RowBox[{"data", "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "10"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ks", "=", 
+    RowBox[{"data", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "11"}], "]"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p1", "=", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"{", 
+       RowBox[{"sigma", ",", "phi"}], "}"}], "]"}], ",", 
+     RowBox[{"Frame", "->", "True"}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Sigma]\>\"", ",", "\"\<\[Phi]\>\""}], "}"}]}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<\[Phi](\[Sigma])\>\""}], ",", 
+     RowBox[{"PlotRange", "->", "All"}], ",", 
+     RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"p2", "=", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"{", 
+       RowBox[{"sigma", ",", "phiSigma"}], "}"}], "]"}], ",", 
+     RowBox[{"Frame", "->", "True"}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Sigma]\>\"", ",", "\"\<d\[Phi]/d\[Sigma]\>\""}], 
+       "}"}]}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<d\[Phi]/d\[Sigma]\>\""}], ",", 
+     RowBox[{"PlotRange", "->", "All"}], ",", 
+     RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"p3", "=", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"{", 
+       RowBox[{"sigma", ",", "tauG"}], "}"}], "]"}], ",", 
+     RowBox[{"Frame", "->", "True"}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Sigma]\>\"", ",", "\"\<\[Tau]_g\>\""}], "}"}]}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<\[Tau]_g(\[Sigma])\>\""}], ",", 
+     RowBox[{"PlotRange", "->", "All"}], ",", 
+     RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"p4", "=", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"{", 
+       RowBox[{"sigma", ",", "phiSigmaPlusTauG"}], "}"}], "]"}], ",", 
+     RowBox[{"Frame", "->", "True"}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<\[Sigma]\>\"", ",", "\"\<d\[Phi]/d\[Sigma]+\[Tau]_g\>\""}], 
+       "}"}]}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<d\[Phi]/d\[Sigma]+\[Tau]_g\>\""}], ",", 
+     RowBox[{"PlotRange", "->", "All"}], ",", 
+     RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p5", "=", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"{", 
+       RowBox[{"sigma", ",", "kG"}], "}"}], "]"}], ",", 
+     RowBox[{"Frame", "->", "True"}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Sigma]\>\"", ",", "\"\<k_g\>\""}], "}"}]}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<k_g(\[Sigma])\>\""}], ",", 
+     RowBox[{"PlotRange", "->", "All"}], ",", 
+     RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"p6", "=", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"{", 
+       RowBox[{"sigma", ",", "kN1"}], "}"}], "]"}], ",", 
+     RowBox[{"Frame", "->", "True"}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Sigma]\>\"", ",", "\"\<k_n1\>\""}], "}"}]}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<k_n1(\[Sigma])\>\""}], ",", 
+     RowBox[{"PlotRange", "->", "All"}], ",", 
+     RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p7", "=", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Transpose", "[", 
+      RowBox[{"{", 
+       RowBox[{"sigma", ",", "kB"}], "}"}], "]"}], ",", 
+     RowBox[{"Frame", "->", "True"}], ",", 
+     RowBox[{"FrameLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Sigma]\>\"", ",", "\"\<k\>\""}], "}"}]}], ",", 
+     RowBox[{"PlotLabel", "->", "\"\<k(\[Sigma])\>\""}], ",", 
+     RowBox[{"PlotRange", "->", "All"}], ",", 
+     RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"p8", "=", 
+    RowBox[{"ListLinePlot", "[", 
+     RowBox[{
+      RowBox[{"Transpose", "[", 
+       RowBox[{"{", 
+        RowBox[{"sigma", ",", "kN2"}], "}"}], "]"}], ",", 
+      RowBox[{"Frame", "->", "True"}], ",", 
+      RowBox[{"FrameLabel", "->", 
+       RowBox[{"{", 
+        RowBox[{"\"\<\[Sigma]\>\"", ",", "\"\<k_n2\>\""}], "}"}]}], ",", 
+      RowBox[{"PlotLabel", "->", "\"\<k_n2(\[Sigma])\>\""}], ",", 
+      RowBox[{"PlotRange", "->", "All"}], ",", 
+      RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"fourPlots", "=", 
+  RowBox[{"GraphicsGrid", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"p1", ",", "p2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"p3", ",", "p4"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"p5", ",", "p6"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"p7", ",", "p8"}], "}"}]}], "}"}], ",", 
+    RowBox[{"ImageSize", "->", "850"}]}], "]"}]}], "\n", 
+ RowBox[{"fourPlots", ";"}], "\n", 
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<phi_four_plots.png\>\"", ",", "fourPlots"}], "]"}]}], "Input",
+ CellChangeTimes->{
+  3.999954690254775*^9, {3.9999547632325964`*^9, 3.999954769564184*^9}, {
+   4.0002831111848803`*^9, 4.00028323974109*^9}, 4.0002832881194468`*^9, {
+   4.000283568341035*^9, 4.0002836540784626`*^9}, {4.0002838924102945`*^9, 
+   4.0002839484517803`*^9}, 4.0002840191880083`*^9},
+ CellLabel->
+  "In[306]:=",ExpressionUUID->"d4ce8274-5873-4a92-bff5-81aba3cb145a"],
+
+Cell[BoxData["\<\"D:\\\\Curve \
+Elasticity\\\\Simulation\\\\2026\\\\jan\\\\results\\\\oct5\\\\github\\\\\
+cylinder\\\\0.8C\"\>"], "Output",
+ CellChangeTimes->{
+  3.9999546912597084`*^9, 3.999954780647129*^9, 4.0001430802213755`*^9, 
+   4.000143555266352*^9, 4.0001971012420874`*^9, 4.0002836575767016`*^9, {
+   4.0002839499855566`*^9, 4.000283964416168*^9}, {4.0002840009972715`*^9, 
+   4.000284020046747*^9}},
+ CellLabel->
+  "Out[306]=",ExpressionUUID->"7e7c2950-f968-44a6-9809-f627c6fd5f6d"],
+
+Cell[BoxData["\<\"D:\\\\Curve Elasticity\\\\Paper Draft\\\\Paper \
+Files\\\\cylinder\\\\0.8C\"\>"], "Output",
+ CellChangeTimes->{
+  3.9999546912597084`*^9, 3.999954780647129*^9, 4.0001430802213755`*^9, 
+   4.000143555266352*^9, 4.0001971012420874`*^9, 4.0002836575767016`*^9, {
+   4.0002839499855566`*^9, 4.000283964416168*^9}, {4.0002840009972715`*^9, 
+   4.0002840200501423`*^9}},
+ CellLabel->
+  "Out[307]=",ExpressionUUID->"66c1db34-b6af-4bbd-b1fd-0c68e4a82095"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"\[Phi]\"", HoldForm], TraditionalForm], None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"\[Phi](\[Sigma])\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {213.33333333333334, -133.49534156997726}, 
+      ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}], 
+     InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"d\[Phi]/d\[Sigma]\"", HoldForm], TraditionalForm], 
+          None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"d\[Phi]/d\[Sigma]\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {640., -133.49534156997726}, 
+      ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}]}, {
+     InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"\[Tau]_g\"", HoldForm], TraditionalForm], None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"\[Tau]_g(\[Sigma])\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {213.33333333333334, -400.48602470993177}, 
+      ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}], 
+     InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"d\[Phi]/d\[Sigma]+\[Tau]_g\"", HoldForm], 
+           TraditionalForm], None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"d\[Phi]/d\[Sigma]+\[Tau]_g\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {640., -400.48602470993177}, 
+      ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}]}, {
+     InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"k_g\"", HoldForm], TraditionalForm], None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"k_g(\[Sigma])\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {213.33333333333334, -667.4767078498862}, 
+      ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}], 
+     InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"k_n1\"", HoldForm], TraditionalForm], None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"k_n1(\[Sigma])\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {640., -667.4767078498862}, ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}]}, {
+     InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"k\"", HoldForm], TraditionalForm], None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"k(\[Sigma])\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {213.33333333333334, -934.4673909898407}, 
+      ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}], 
+     InsetBox[
+      GraphicsBox[{},
+       AlignmentPoint->Center,
+       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+       Axes->{True, True},
+       AxesLabel->{None, None},
+       AxesOrigin->{0, 0},
+       AxesStyle->{},
+       Background->None,
+       BaseStyle->{},
+       BaselinePosition->Automatic,
+       ColorOutput->Automatic,
+       ContentSelectable->Automatic,
+       CoordinatesToolOptions:>Automatic,
+       DisplayFunction->Identity,
+       Epilog->{},
+       FormatType:>TraditionalForm,
+       Frame->{{True, True}, {True, True}},
+       FrameLabel->{{
+          FormBox[
+           TagBox["\"k_n2\"", HoldForm], TraditionalForm], None}, {
+          FormBox[
+           TagBox["\"\[Sigma]\"", HoldForm], TraditionalForm], None}},
+       FrameStyle->{},
+       FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+       FrameTicksStyle->{},
+       GridLines->{None, None},
+       GridLinesStyle->Directive[
+         GrayLevel[0.5, 0.4]],
+       ImageMargins->0.,
+       ImagePadding->{{34.07324132919312, 0.5}, {31.343749999999996`, 0.5}},
+       ImageSize->400,
+       ImageSizeRaw->Automatic,
+       LabelStyle->{},
+       Method->{
+        "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "DefaultMeshStyle" -> AbsolutePointSize[6], "DefaultPlotStyle" -> {
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.880722, 0.611041, 0.142051], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.560181, 0.691569, 0.194885], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.922526, 0.385626, 0.209179], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.528488, 0.470624, 0.701351], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.772079, 0.431554, 0.102387], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.363898, 0.618501, 0.782349], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[1, 0.75, 0], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.647624, 0.37816, 0.614037], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.571589, 0.586483, 0.], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.915, 0.3325, 0.2125], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[
+            0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+            AbsoluteThickness[2]], 
+           Directive[
+            RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+            AbsoluteThickness[2]]}, "DomainPadding" -> Scaled[0.02], 
+         "RangePadding" -> Scaled[0.05], "MessagesHead" -> ListLinePlot, 
+         "DownsampleWindow" -> None, "OptimizePlotMarkers" -> True, 
+         "IncludeHighlighting" -> "CurrentSet", "HighlightStyle" -> Automatic,
+          "MessagesHead" -> ListLinePlot, "OptimizePlotMarkers" -> True, 
+         "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             Identity[
+              Part[#, 1]], 
+             Identity[
+              Part[#, 2]]}& )}},
+       PlotLabel->FormBox["\"k_n2(\[Sigma])\"", TraditionalForm],
+       PlotRange->{{0, 1}, {0, 1}},
+       PlotRangeClipping->True,
+       PlotRangePadding->{{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.05]}},
+       PlotRegion->Automatic,
+       PreserveImageOptions->Automatic,
+       Prolog->{},
+       RotateLabel->True,
+       Ticks->{Automatic, Automatic},
+       TicksStyle->{}], {640., -934.4673909898407}, ImageScaled[{0.5, 0.5}], {400, 247.2135954999579},
+      BaseStyle->{Graphics3DBoxOptions -> {SphericalRegion -> False}}]}}, {}},
+  ImageSize->850,
+  PlotRangePadding->{6, 5}]], "Output",
+ CellChangeTimes->{
+  3.9999546912597084`*^9, 3.999954780647129*^9, 4.0001430802213755`*^9, 
+   4.000143555266352*^9, 4.0001971012420874`*^9, 4.0002836575767016`*^9, {
+   4.0002839499855566`*^9, 4.000283964416168*^9}, {4.0002840009972715`*^9, 
+   4.000284020386861*^9}},
+ CellLabel->
+  "Out[325]=",ExpressionUUID->"43375e39-ec8b-4c4d-b278-bb65666d346d"],
+
+Cell[BoxData["\<\"phi_four_plots.png\"\>"], "Output",
+ CellChangeTimes->{
+  3.9999546912597084`*^9, 3.999954780647129*^9, 4.0001430802213755`*^9, 
+   4.000143555266352*^9, 4.0001971012420874`*^9, 4.0002836575767016`*^9, {
+   4.0002839499855566`*^9, 4.000283964416168*^9}, {4.0002840009972715`*^9, 
+   4.0002840210050063`*^9}},
+ CellLabel->
+  "Out[327]=",ExpressionUUID->"02c86cd6-61cd-4362-b43a-dbb2c597424f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{4.0002840125264935`*^9, 
+  4.000284012531665*^9}},ExpressionUUID->"84234401-546b-4753-87d8-\
+cfcb0f5d457a"],
+
+Cell[BoxData["\<\"phi_four_plots.png\"\>"], "Output",
+ CellChangeTimes->{
+  3.9999546912597084`*^9, 3.999954780647129*^9, 4.0001430802213755`*^9, 
+   4.000143555266352*^9, 4.0001971012420874`*^9, 4.0002836575767016`*^9, {
+   4.0002839499855566`*^9, 4.000283964416168*^9}, 4.0002840019010177`*^9},
+ CellLabel->
+  "Out[305]=",ExpressionUUID->"9ffd2061-c120-43dc-8808-8f3a02b55e36"]
+}, Open  ]]
+},
+WindowSize->{1141.2, 568.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"bc17d790-0427-4c6e-a3fb-ae81ba677a8a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 7713, 214, 504, "Input",ExpressionUUID->"d4ce8274-5873-4a92-bff5-81aba3cb145a"],
+Cell[8296, 238, 493, 9, 32, "Output",ExpressionUUID->"7e7c2950-f968-44a6-9809-f627c6fd5f6d"],
+Cell[8792, 249, 465, 8, 32, "Output",ExpressionUUID->"66c1db34-b6af-4bbd-b1fd-0c68e4a82095"],
+Cell[9260, 259, 37807, 961, 1094, "Output",ExpressionUUID->"43375e39-ec8b-4c4d-b278-bb65666d346d"],
+Cell[47070, 1222, 409, 7, 32, "Output",ExpressionUUID->"02c86cd6-61cd-4362-b43a-dbb2c597424f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[47516, 1234, 154, 3, 28, "Input",ExpressionUUID->"84234401-546b-4753-87d8-cfcb0f5d457a"],
+Cell[47673, 1239, 379, 6, 32, "Output",ExpressionUUID->"9ffd2061-c120-43dc-8808-8f3a02b55e36"]
+}, Open  ]]
+}
+]
+*)
+
